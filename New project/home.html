@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="main.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <style>
+    .error-message {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .spinner {
+      display: none;
+      margin: 15px auto;
+      width: 30px;
+      height: 30px;
+      border: 4px solid #fff;
+      border-top: 4px solid blue;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <form onsubmit="fakeLogin(event)">
+      <h1>Login</h1>
+
+      <div class="input-box">
+        <input type="text" id="username" placeholder="Username" required>
+        <i class="bx bxs-user"></i>
+      </div>
+
+      <div class="input-box">
+        <input type="password" id="password" placeholder="Password" required>
+        <i class="bx bxs-lock-alt"></i>
+      </div>
+
+      <div class="remember-forgot">
+        <label><input type="checkbox"> Remember me</label>
+        <a href="#">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn">Login</button>
+
+      <div class="spinner" id="spinner"></div>
+      <div id="error" class="error-message">Invalid username or password</div>
+
+      <div class="register-link">
+        <p>Don't have an account? <a href="register.html">Register</a></p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function fakeLogin(event) {
+      event.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorBox = document.getElementById("error");
+      const spinner = document.getElementById("spinner");
+
+      // List of valid fake users
+      const validUsers = [
+        { username: "Yves", password: "1234" },
+        { username: "Baptiste", password: "change" },
+        { username: "Iragena", password: "0000" }
+      ];
+
+      // Check if credentials match any user
+      const isValid = validUsers.some(user =>
+        user.username === username && user.password === password
+      );
+
+      if (isValid) {
+        errorBox.style.display = "none";
+        spinner.style.display = "block";
+
+        // Simulate loading before redirect
+        setTimeout(() => {
+          window.location.href = "index.html"; // Change to your real school page
+        }, 2000); // 2 seconds loading
+      } else {
+        spinner.style.display = "none";
+        errorBox.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
